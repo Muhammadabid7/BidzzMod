@@ -86,9 +86,9 @@ const requestError = document.getElementById('requestError');
 const content = document.getElementById('content');
 const languageModal = document.getElementById('languageModal');
 
-const BOT_TOKEN = 'YOUR_VALID_BOT_TOKEN';
-const CHAT_ID_1 = '-100YOUR_PRIVATE_CHAT_ID';
-const CHAT_ID_2 = '-100YOUR_PUBLIC_CHAT_ID';
+const BOT_TOKEN = '6998178034:AAEtu1Cux0tYA8xi0QHsK7BPeQB2K3f4Qps';
+const CHAT_ID_1 = '-1002684590116';
+const CHAT_ID_2 = '-1002358173918';
 
 const translations = {
     id: {
