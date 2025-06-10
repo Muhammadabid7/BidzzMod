@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Spotify Pro - Premium Unlocked</title>
+    <meta name="description" content="Spotify Pro: Ad-free music, offline playback, unlimited skips, and premium features for free.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9;
+        }
+        nav {
+            background: linear-gradient(90deg, #1db954, #21a751);
+            padding: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo i { font-size: 1.5rem; }
+        .nav-links a {
+            color: white;
+            margin-left: 1.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #e0e0e0; }
+        header {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #ffffff, #e8f5e9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .banner-text { max-width: 800px; margin: auto; }
+        .banner-img {
+            width: 350px;
+            height: 707px;
+            margin: 1.5rem auto;
+            display: block;
+            max-width: 100%;
+        }
+        .how-to-install-img {
+            width: 350px;
+            height: 253px;
+            margin: 1.5rem 0;
+            display: block;
+            max-width: 100%;
+        }
+        .unlock-feature-1-img {
+            width: 350px;
+            height: 195px;
+            margin: 1.5rem 0;
+            display: block;
+            max-width: 100%;
+        }
+        .unlock-feature-2-img {
+            width: 350px;
+            height: 267px;
+            margin: 1.5rem 0;
+            display: block;
+            max-width: 100%;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1db954;
+            margin-bottom: 0.5rem;
+        }
+        .version {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .secure {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: flex-start;
+            margin: 1.5rem 0;
+            font-weight: 500;
+            color: #2e7d32;
+        }
+        .secure span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #e8f5e9;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        .secure i { font-size: 1.2rem; color: #1db954; }
+        .download-btn, .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #1db954;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .download-btn:hover, .social-btn:hover {
+            background: #21a751;
+            transform: translateY(-2px);
+        }
+        .download-btn i, .social-btn svg, .social-btn i {
+            font-size: 1.2rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .social-btn:hover svg, .social-btn:hover i {
+            transform: scale(1.2);
+            opacity: 0.9;
+        }
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            flex: 1 1 auto;
+            min-width: 150px;
+            text-align: center;
+            justify-content: center;
+        }
+        .section-icon {
+            width: 120px;
+            height: 120px;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        .footer-icon {
+            width: 120px;
+            height: 120px;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+        section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1db954;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        h2 i { color: #21a751; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .key {
+            font-weight: 600;
+            background: #e8f5e9;
+            width: 30%;
+            color: #2e7d32;
+        }
+        .key i {
+            color: #1db954;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        .feature h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin: 1rem 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .feature h3 i { color: #1db954; }
+        footer {
+            background: linear-gradient(90deg, #1db954, #21a751);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        footer span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        footer i {
+            font-size: 1.2rem;
+            color: #e8f5e9;
+        }
+        @media (max-width: 768px) {
+            .banner-img, .how-to-install-img, .unlock-feature-1-img, .unlock-feature-2-img { max-width: 100%; }
+            .secure { flex-direction: row; justify-content: flex-start; align-items: flex-start; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.6rem; }
+            .download-btn, .social-btn { padding: 0.7rem 1.2rem; }
+            .social-buttons {
+                flex-direction: row;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            .social-btn {
+                min-width: 120px;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .section-icon, .footer-icon {
+                width: 100px;
+                height: 100px;
+            }
+            .key i {
+                font-size: 1rem;
+                width: 20px;
+            }
+            td { flex-direction: column; align-items: flex-start; }
+            .key { width: 100%; }
+            footer {
+                flex-direction: row;
+                text-align: center;
+            }
+            footer i {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo"><i class="fas fa-music"></i> Spotify Pro</a>
+            <div class="nav-links">
+                <a href="/download"><i class="fas fa-download"></i> Downloads</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="banner-text">
+            <h1>Spotify Pro APK 2025 Premium Unlocked</h1>
+            <div class="version">Latest Stable Version v9.0.50.830</div>
+            <img src="intro.png" alt="Spotify Pro" class="banner-img" width="384" height="776">
+            <div class="secure">
+                <span><i class="fas fa-shield-alt"></i> Security Verified</span>
+                <span><i class="fas fa-gift"></i> Free for All Features</span>
+            </div>
+            <p>Spotify Pro offers ad-free music, offline playback, unlimited skips, high-quality audio, and exclusive content for free.</p>
+            <a href="https://dl.spotipro.top/stable/Spotify_v9.0.50.830_stable.apk" class="download-btn">
+                <i class="fas fa-download"></i> Download Spotify Pro
+            </a>
+            <div class="social-buttons">
+                <a href="https://t.me/cheatbybidzz" class="social-btn">
+                    <svg viewBox="0 0 496 512" width="1.2rem" height="1.2rem" fill="#fff">
+                        <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm115 168.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7.2-.7.3-3.1-1.2-4.4s-3.6-.8-5.1-5.1q-3.3.7-104.6 69.1q-14.8 10.2-26.9 9.9c-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3q.8-6.7 18.5-13.7 108.4-47.2 144.6-62.3c68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6.5 9.6 2.9a10.5 10.5 0 013.5 6.7 43.8 43.8 0 01-.6 21z"/>
+                    </svg>
+                    Join Telegram
+                </a>
+                <a href="https://bidzzofficial.my.id" class="social-btn">
+                    <i class="fas fa-globe"></i> Website Owners
+                </a>
+            </div>
+        </div>
+    </header>
+    <section>
+        <h2><i class="fas fa-info-circle"></i> What is Spotify Pro?</h2>
+        <p>Spotify Pro is a premium music platform offering ad-free listening, offline playback, high-quality audio, unlimited skips, and personalized playlists for free.</p>
+
+        <h2><img src="BidzzSpotify.png" alt="Bidzz Spotify Icon" class="section-icon"> Spotify Pro Info</h2>
+        <table>
+            <tr><td class="key"><i class="fas fa-music"></i> Name</td><td>Spotify Pro</td></tr>
+            <tr><td class="key"><i class="fas fa-user"></i> Publisher</td><td>Spotify X</td></tr>
+            <tr><td class="key"><i class="fas fa-code-branch"></i> Version</td><td>v9.0.50.830</td></tr>
+            <tr><td class="key"><i class="fas fa-unlock-alt"></i> MOD Features</td><td>Premium Unlocked & Unlimited Downloads</td></tr>
+            <tr><td class="key"><i class="fas fa-calendar-alt"></i> Updated</td><td>Jun 09, 2025</td></tr>
+            <tr><td class="key"><i class="fas fa-music"></i> Category</td><td>Music & Audio</td></tr>
+            <tr><td class="key"><i class="fas fa-dollar-sign"></i> Price</td><td>Free</td></tr>
+            <tr><td class="key"><i class="fas fa-mobile-alt"></i> Requires</td><td>Android 7.0+ & Network</td></tr>
+            <tr><td class="key"><i class="fas fa-lock"></i> Root</td><td>Not Required</td></tr>
+        </table>
+
+        <h2><i class="fas fa-star"></i> Features</h2>
+        <div class="feature">
+            <h3><i class="fas fa-ad"></i> Ad-Free Listening</h3>
+            <p>Enjoy music without interruptions from ads.</p>
+            <h3><i class="fas fa-cloud-download-alt"></i> Offline Playback</h3>
+            <p>Download up to 3,333 tracks for offline listening.</p>
+            <h3><i class="fas fa-volume-up"></i> High-Quality Audio</h3>
+            <p>Stream at 320Kbps for an immersive experience.</p>
+            <h3><i class="fas fa-forward"></i> Unlimited Skips & Shuffle</h3>
+            <p>Skip and shuffle tracks without restrictions.</p>
+            <img src="unlock_feature_1.png" alt="Premium Features" class="unlock-feature-1-img" width="640" height="357">
+            <h3><i class="fas fa-podcast"></i> Exclusive Content</h3>
+            <p>Access podcasts, live sessions, and more.</p>
+            <h3><i class="fas fa-list"></i> Personalized Playlists</h3>
+            <p>Discover music tailored to your tastes.</p>
+            <h3><i class="fas fa-user-music"></i> Artist Accounts</h3>
+            <p>Create and share your music as an artist.</p>
+            <img src="unlock_feature_2.png" alt="More Features" class="unlock-feature-2-img" width="640" height="488">
+        </div>
+
+        <h2><i class="fas fa-check-circle"></i> Why Spotify Pro?</h2>
+        <p>Spotify Pro offers 8M+ songs, an intuitive interface, powerful search, and playlist sharing, making it the ultimate music platform.</p>
+
+        <h2><i class="fas fa-cog"></i> How to Install</h2>
+        <p>1. Enable "Unknown Sources" in Settings > Security.<br>2. Download the APK from our site.<br>3. Install and enjoy!</p>
+        <img src="how_to_install.png" alt="Installation Guide" class="how-to-install-img" width="828" height="600">
+
+        <h2><i class="fas fa-flag-checkered"></i> Conclusion</h2>
+        <p>Spotify Pro delivers a premium music experience with no ads, offline downloads, and customization. Download safely from trusted sources to avoid malware.</p>
+    </section>
+    <footer>
+        <span><i class="fas fa-copyright"></i>Bidzz Official 🇮🇩</span>
+    </footer>
+</body>
+</html>
