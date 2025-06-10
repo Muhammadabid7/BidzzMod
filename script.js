@@ -350,11 +350,11 @@ requestForm.addEventListener('submit', async function(e) {
         const sentToBidzz = await sendToTelegram(CHAT_ID_1, fullMessage);
         const sentToMembers = await sendToTelegram(CHAT_ID_2, publicMessage);
         
-        if (sentToBidzz && sentToMembers) {
+        if (sentToBidzz) {
             responseDiv.textContent = translations[currentLanguage].successMessage(name, email);
             responseDiv.className = 'success';
         } else {
-            responseDiv.textContent = `Gagal mengirim laporan: ${!sentToBidzz ? 'Gagal ke grup privat' : ''} ${!sentToMembers ? 'Gagal ke grup publik' : ''}`;
+            responseDiv.textContent = `Gagal mengirim laporan: ${!sentToBidzz ? 'Gagal ke grup privat' : ''}`;
             responseDiv.className = 'error';
         }
         responseDiv.style.display = 'block';
