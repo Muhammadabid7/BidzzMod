@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Download Free Fire & Free Fire MAX latest official APK versions for Android. Enjoy 32-bit and 64-bit OB96, OB99, OB93, OB95 updates with enhanced graphics and gameplay.">
+    <meta name="keywords" content="Free Fire, Free Fire MAX, APK, Android, OB96, OB99, OB93, OB95, Gaming, Battle Royale, Download">
+    <meta name="author" content="Bidzz Official">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1A2526">
+    <title>Free Fire & Free Fire MAX - Latest APK Downloads</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="bidzz">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1A2526 0%, #2C3E50 100%);
+            color: #FFFFFF;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #F5F7FA 0%, #DDE4E9 100%);
+            color: #1A2526;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 450px;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo img {
+            width: 350px;
+            height: 246px;
+            margin: 0 auto 20px;
+            border-radius: 12px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #FFFFFF;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        body.light-mode .title {
+            color: #1A2526;
+        }
+
+        .version {
+            font-size: 16px;
+            color: #B0BEC5;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        body.light-mode .version {
+            color: #4A6066;
+        }
+
+        .rating {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #B0BEC5;
+        }
+
+        body.light-mode .rating {
+            color: #4A6066;
+        }
+
+        .rating .stars {
+            color: #FFD700;
+            font-size: 22px;
+        }
+
+        .rating .votes {
+            font-size: 14px;
+        }
+
+        .download-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, #00C853, #00E676);
+            color: #FFFFFF;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(45deg, #00E676, #00C853);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+        }
+
+        .progress-bar {
+            display: none;
+            width: 100%;
+            height: 5px;
+            background: #333;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-bar div {
+            width: 0;
+            height: 100%;
+            background: #00C853;
+            transition: width 2s linear;
+        }
+
+        .progress-bar.active div {
+            width: 100%;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #CCCCCC;
+            margin-top: 20px;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        body.light-mode .description {
+            color: #4A6066;
+        }
+
+        .description p {
+            margin-bottom: 15px;
+        }
+
+        .description ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .description li {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #B0BEC5;
+        }
+
+        body.light-mode .footer {
+            color: #4A6066;
+        }
+
+        .footer a {
+            color: #00C853;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00E676;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle i {
+            color: #FFFFFF;
+            font-size: 20px;
+        }
+
+        body.light-mode .theme-toggle i {
+            color: #1A2526;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 25px;
+            }
+            .title {
+                font-size: 26px;
+            }
+            .download-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            .logo img {
+                width: 300px;
+                height: 211px;
+            }
+        }
+
+        .loading {
+            display: none;
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #00C853;
+            border-top: 4px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    <div class="container">
+        <div class="logo">
+            <img src="bidzz" alt="Free Fire Logo" width="640" height="450" style="width: 350px; height: 246px;" onerror="this.src='https://via.placeholder.com/640x450?text=Free+Fire+Logo';">
+        </div>
+        <div class="title">Free Fire & Free Fire MAX</div>
+        <div class="version">Latest OB Updates • June 14, 2025</div>
+        <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span class="votes">4.7 (1.2M votes)</span>
+        </div>
+        <div class="download-buttons">
+            <a href="https://d.apkpure.com/b/XAPK/com.dts.freefireth?versionCode=2019118396" class="download-btn" id="downloadBtn1"><i class="fas fa-download"></i>FF 32BIT OB96</a>
+            <a href="https://d.apkpure.net/b/XAPK/com.dts.freefireth?versionCode=2019118399" class="download-btn" id="downloadBtn2"><i class="fas fa-download"></i>FF 64BIT OB99</a>
+            <a href="https://d.apkpure.com/b/XAPK/com.dts.freefiremax?versionCode=2019115293" class="download-btn" id="downloadBtn3"><i class="fas fa-download"></i>FF MAX 32BIT OB93</a>
+            <a href="https://d.apkpure.com/b/XAPK/com.dts.freefiremax?versionCode=2019115295" class="download-btn" id="downloadBtn4"><i class="fas fa-download"></i>FF MAX 64BIT OB95</a>
+            <a href="https://d.apkpure.com/b/XAPK/com.dts.freefiremax?versionCode=2019115296" class="download-btn" id="downloadBtn5"><i class="fas fa-download"></i>FF MAX 64BIT OB96</a>
+            <a href="https://t.me/FileDrawerBot?start=047c2fbc-0873-4bbe-90f0-ad615ccd8657" class="download-btn" id="downloadBtn6"><i class="fas fa-globe"></i>FF Global APK</a>
+        </div>
+        <div class="progress-bar" id="progressBar"><div></div></div>
+        <div class="loading" id="loadingSpinner"></div>
+        <div class="description">
+            <p>Experience the ultimate battle royale with Free Fire and Free Fire MAX. Download the latest official APKs (OB93, OB95, OB96, OB99) for Android, featuring enhanced graphics, optimized performance, and the best gaming experience. No login required, supports both 32-bit and 64-bit devices.</p>
+            <ul>
+                <li>Latest Official Updates (OB93, OB95, OB96, OB99)</li>
+                <li>32-bit and 64-bit Compatibility</li>
+                <li>Enhanced Graphics and Smooth Gameplay</li>
+                <li>Universal Device Support</li>
+                <li>Global Version via Telegram</li>
+            </ul>
+        </div>
+        <div class="footer">
+            Developed by • <a href="https://bidzzofficial.my.id" target="_blank">Bidzz Official</a>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            themeToggle.innerHTML = document.body.classList.contains('light-mode')
+                ? '<i class="fas fa-sun"></i>'
+                : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+
+        // Load Theme Preference
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        // Download Buttons
+        const buttons = [
+            document.getElementById('downloadBtn1'),
+            document.getElementById('downloadBtn2'),
+            document.getElementById('downloadBtn3'),
+            document.getElementById('downloadBtn4'),
+            document.getElementById('downloadBtn5'),
+            document.getElementById('downloadBtn6')
+        ];
+        const spinner = document.getElementById('loadingSpinner');
+        const progressBar = document.getElementById('progressBar');
+
+        buttons.forEach(button => {
+            button.addEventListener('contextmenu', e => e.preventDefault());
+
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                buttons.forEach(btn => btn.style.display = 'none');
+                spinner.style.display = 'block';
+                progressBar.classList.add('active');
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                    progressBar.classList.remove('active');
+                    buttons.forEach(btn => btn.style.display = 'inline-flex');
+                    window.location.href = this.href;
+                }, 2000);
+            });
+        });
+
+        // Accessibility: Keyboard Navigation
+        buttons.forEach(button => {
+            button.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    button.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
