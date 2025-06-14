@@ -1,5 +1,12 @@
+/* Reset dan Smooth Scroll */
 * {
     transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
+    will-change: transform, opacity;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -10,17 +17,18 @@ body {
     color: white;
     opacity: 0;
     animation: fadeIn 1s ease-out forwards;
+    overflow-x: hidden;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
+/* Header */
 header {
     background: rgba(42, 52, 53, 0.2);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 10px 20px;
@@ -30,8 +38,6 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    opacity: 0;
-    transform: translateY(-20px);
     animation: slideDown 0.5s ease-out 0.2s forwards;
 }
 
@@ -43,14 +49,12 @@ header {
 .logo img {
     width: 40px;
     height: 40px;
-    vertical-align: middle;
     border-radius: 50%;
     object-fit: cover;
-    transition: transform 0.3s ease;
 }
 
 .logo img:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(360deg);
 }
 
 .logo span {
@@ -59,63 +63,234 @@ header {
     margin-left: 10px;
 }
 
+.logo span:hover {
+    color: #00C853;
+}
+
 .tagline {
     font-size: 12px;
     color: #00C853;
     margin-left: 10px;
-    transition: color 0.3s ease;
 }
 
 .tagline:hover {
     color: #FFFFFF;
+    transform: translateX(5px);
+}
+
+.tagline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #00C853;
+}
+
+.tagline:hover::after {
+    width: 100%;
 }
 
 .menu-icon {
     font-size: 24px;
     cursor: pointer;
-    transition: transform 0.3s ease;
 }
 
 .menu-icon:hover {
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.2);
 }
 
+/* Dialogs */
 .menu-dialog, .report-dialog, #languageModal, #loginGoogleModal, #musicPlayerModal {
     background: linear-gradient(135deg, rgba(42, 52, 53, 0.98), rgba(0, 200, 83, 0.5));
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
     border: 2px solid rgba(0, 200, 83, 0.7);
     border-radius: 25px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
     max-width: 500px;
     width: 90%;
-    padding: 30px;
-    transform: scale(0.5) translateY(-150px);
+    padding: 20px;
+    transform: scale(0.8) translateY(-100px);
     opacity: 0;
-    transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     z-index: 2000;
 }
 
 .menu-dialog[open], .report-dialog[open], #languageModal[open], #loginGoogleModal[open], #musicPlayerModal[open] {
-    transform: scale(1) translateY(0);
-    opacity: 1;
+    animation: popIn 0.5s ease-out forwards;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8) translateY(-100px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Menu Dialog */
+.menu-item {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    animation: slideInMenu 0.4s ease-out forwards;
+}
+
+@keyframes slideInMenu {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.menu-item a {
+    color: #B0BEC5; /* Warna teks default abu-abu terang */
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.menu-item a:hover {
+    color: #00C853; /* Warna hijau saat hover */
+    transform: translateX(5px);
+}
+
+.menu-item i {
+    margin-right: 10px;
+    color: #00C853; /* Ikon menggunakan warna hijau */
+}
+
+.menu-item::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: rgba(0, 200, 83, 0.3); /* Garis pemisah hijau transparan */
+}
+
+.menu-item:hover::after {
+    width: 100%;
+    background: #00C853; /* Garis pemisah hijau penuh saat hover */
+}
+
+.menu-item:last-child::after {
+    display: none;
+}
+
+.search-mod {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.search-mod:hover {
+    box-shadow: 0 0 15px rgba(0, 200, 83, 0.7);
+    transform: scale(1.03);
+}
+
+.search-mod i {
+    font-size: 20px;
+    color: #00C853; /* Ikon pencarian hijau */
+    margin-right: 12px;
+}
+
+.search-mod input {
+    background: transparent;
+    border: none;
+    color: #B0BEC5; /* Warna teks input abu-abu terang */
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+}
+
+.search-mod input:focus {
+    color: #00C853; /* Warna teks input saat fokus menjadi hijau */
+}
+
+.search-mod input::placeholder {
+    color: #78909C; /* Placeholder abu-abu lebih gelap untuk kontras */
+}
+
+/* Login Google Modal */
+#loginGoogleModal {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+#loginGoogleContent {
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 10px;
+    color: #B0BEC5;
+}
+
+#loginGoogleContent ol {
+    padding-left: 15px;
+    margin: 10px 0;
+}
+
+#loginGoogleContent li {
+    margin-bottom: 5px;
+}
+
+#loginGoogleContent p {
+    margin: 8px 0;
+}
+
+#loginGoogleContent strong {
+    color: #00C853;
+}
+
+.language-switch {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.lang-btn.active {
+    background: #00C853;
+}
+
+.lang-btn:hover {
+    background: #009624;
+    transform: scale(1.05);
 }
 
 .dialog-content {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 200px;
+    padding: 20px;
 }
 
 .dialog-content h2 {
     font-size: 24px;
-    margin: 0 0 30px;
+    margin: 0 0 20px;
     color: #00C853;
     text-align: center;
     letter-spacing: 2px;
     text-transform: uppercase;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    animation: fadeUp 0.5s ease-out 0.3s forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .close-btn {
@@ -129,108 +304,16 @@ header {
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+    z-index: 10; /* Pastikan tombol di atas elemen lain */
 }
 
 .close-btn:hover {
     transform: rotate(180deg) scale(1.3);
-    background: rgba(0, 200, 83, 0.5);
-    color: #FFFFFF;
-}
-
-.menu-item {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 0 10px;
-    position: relative;
-}
-
-.menu-item::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.menu-item:last-child::after {
-    display: none;
-}
-
-.search-mod {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    padding: 12px;
-    transition: box-shadow 0.4s ease, transform 0.4s ease;
-}
-
-.search-mod:hover {
-    box-shadow: 0 0 15px rgba(0, 200, 83, 0.7);
-    transform: scale(1.03);
-}
-
-.search-mod i {
-    font-size: 20px;
-    color: #00C853;
-    margin-right: 12px;
-    transition: transform 0.4s ease;
-}
-
-.search-mod:hover i {
-    transform: scale(1.3);
-}
-
-.search-mod input {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 16px;
-    width: 100%;
-    outline: none;
-}
-
-.search-mod input::placeholder {
-    color: #B0BEC5;
-    font-style: italic;
-}
-
-.menu-item a {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 10px;
-    transition: all 0.4s ease;
-}
-
-.menu-item a i {
-    margin-right: 12px;
-    font-size: 18px;
-    color: #00C853;
-    transition: transform 0.4s ease;
-}
-
-.menu-item a:hover {
-    background: linear-gradient(to right, rgba(0, 200, 83, 0.6), rgba(255, 255, 255, 0.2));
-    transform: translateX(10px);
-    color: #00C853;
-}
-
-.menu-item a:hover i {
-    transform: scale(1.3);
+    background: rgba(0, 200, 83, 0.7);
 }
 
 .nav-container {
@@ -246,7 +329,10 @@ header {
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
-    transition: color 0.3s ease;
+}
+
+.nav-container a:hover {
+    transform: scale(1.05);
 }
 
 .nav-container a.active {
@@ -258,26 +344,38 @@ header {
     bottom: 0;
     height: 3px;
     background: #00C853;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .report-dialog #content {
     width: 100%;
 }
 
-.report-dialog #formSection, .report-dialog #aboutSection {
+.report-dialog #formSection,
+.report-dialog #aboutSection {
     display: none;
     flex-direction: column;
     align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
-.report-dialog #formSection {
+.report-dialog #formSection.active,
+.report-dialog #aboutSection.active {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .report-dialog .form-group {
     width: 100%;
     margin-bottom: 20px;
+    animation: slideUpForm 0.4s ease-out forwards;
+}
+
+@keyframes slideUpForm {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .report-dialog label {
@@ -286,7 +384,12 @@ header {
     font-weight: bold;
 }
 
-.report-dialog input, .report-dialog textarea {
+.report-dialog label:hover {
+    color: #00C853;
+}
+
+.report-dialog input,
+.report-dialog textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -294,6 +397,12 @@ header {
     background: rgba(255, 255, 255, 0.1);
     color: white;
     font-size: 16px;
+}
+
+.report-dialog input:focus,
+.report-dialog textarea:focus {
+    border-color: #00C853;
+    box-shadow: 0 0 10px rgba(0, 200, 83, 0.5);
 }
 
 .report-dialog textarea {
@@ -313,16 +422,23 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 .report-dialog button[type="submit"]:hover {
     background: #009624;
+    transform: scale(1.05);
 }
 
 .report-dialog #response {
     margin-top: 20px;
     font-size: 14px;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.report-dialog #response.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .report-dialog #response.success {
@@ -341,11 +457,11 @@ header {
     border-radius: 5px;
     margin: 10px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 #languageModal button:hover {
     background: #009624;
+    transform: scale(1.1);
 }
 
 #aboutSection ol {
@@ -359,77 +475,16 @@ header {
     margin-bottom: 10px;
     font-size: 14px;
     color: #B0BEC5;
+    animation: slideInList 0.4s ease-out forwards;
 }
 
-.language-switch {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.lang-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.lang-btn.active {
-    background: #00C853;
-}
-
-.lang-btn:hover {
-    background: #009624;
-}
-
-#loginGoogleModal, #musicPlayerModal {
-    max-width: 600px;
-}
-
-#loginGoogleModal[open], #musicPlayerModal[open] {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-}
-
-#loginGoogleContent {
-    text-align: left;
-    color: #B0BEC5;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-#loginGoogleContent h3 {
-    color: #00C853;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-#loginGoogleContent ol, #loginGoogleContent ul {
-    padding-left: 20px;
-    margin: 10px 0;
-}
-
-#loginGoogleContent li {
-    margin-bottom: 10px;
-}
-
-#loginGoogleContent p {
-    margin: 10px 0;
-}
-
-#loginGoogleContent strong {
-    color: white;
+@keyframes slideInList {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 #musicPlayerContent {
     text-align: center;
-    color: #B0BEC5;
-    font-size: 14px;
-    line-height: 1.6;
 }
 
 .player-controls {
@@ -448,12 +503,11 @@ header {
     height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .player-controls button:hover {
     background: #00C853;
-    transform: scale(1.1);
+    transform: scale(1.2) rotate(360deg);
 }
 
 #trackSelector {
@@ -465,6 +519,11 @@ header {
     font-size: 14px;
     margin: 10px 0;
     width: 200px;
+}
+
+#trackSelector:hover {
+    border-color: #00C853;
+    transform: scale(1.05);
 }
 
 #currentTrack {
@@ -479,7 +538,6 @@ header {
 .app-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 15px;
     margin-bottom: 15px;
@@ -487,7 +545,6 @@ header {
     align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.18);
-    transition: all 0.3s ease;
     cursor: pointer;
     opacity: 0;
     transform: translateY(20px);
@@ -496,54 +553,33 @@ header {
 .app-card.active {
     opacity: 1;
     transform: translateY(0);
-    animation: slideUp 0.5s ease-out forwards;
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.app-card.hidden {
-    display: none;
 }
 
 .app-card:hover {
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
+    transform: scale(1.03) translateY(-5px);
 }
 
 .app-card img {
     width: 60px;
     height: 60px;
     margin-right: 15px;
-    transition: transform 0.3s ease;
-}
-
-.app-card:hover img {
-    transform: rotate(360deg);
 }
 
 .app-info h2 {
     font-size: 16px;
     margin: 0;
-    transition: color 0.3s ease;
 }
 
 .app-info h2:hover {
     color: #00C853;
+    transform: translateX(5px);
 }
 
-.category, .version {
+.category, .version, .premium {
     font-size: 12px;
     color: #B0BEC5;
-    margin: 2px 0;
-}
-
-.premium {
-    font-size: 12px;
-    color: #00C853;
     margin: 2px 0;
 }
 
@@ -554,37 +590,22 @@ header {
     border-radius: 5px;
     font-size: 10px;
     margin-left: 10px;
-    transition: transform 0.3s ease;
-    pointer-events: none;
-}
-
-.app-card:hover .mod-label {
-    transform: scale(1.1);
-}
-
-.updated-btn, .maintenance-btn {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    transition: all 0.3s ease;
-    margin-left: auto;
-    pointer-events: none;
 }
 
 .updated-btn {
     background: rgba(0, 200, 83, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(0, 200, 83, 0.5);
     color: #00C853;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-left: auto;
 }
 
-.maintenance-btn {
-    background: rgba(255, 152, 0, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 152, 0, 0.5);
-    color: #FF9800;
+.updated-btn:hover {
+    background: #00C853;
+    color: white;
+    transform: scale(1.1);
 }
 
 footer {
@@ -592,11 +613,14 @@ footer {
     padding: 10px;
     background: rgba(42, 52, 53, 0.2);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 12px;
-    opacity: 0;
-    animation: fadeIn 1s ease-out 0.5s forwards;
+    animation: fadeInFooter 1s ease-out 0.5s forwards;
+}
+
+@keyframes fadeInFooter {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @supports not (backdrop-filter: blur(10px)) {
@@ -605,75 +629,82 @@ footer {
         box-shadow: none;
         border: none;
     }
-    .updated-btn {
-        background: #00C853;
-        color: white;
-    }
-    .maintenance-btn {
-        background: #FF9800;
-        color: white;
-    }
 }
 
+/* Media Queries */
 @media (max-width: 768px) {
     .app-card {
         flex-direction: column;
         align-items: flex-start;
     }
-    .updated-btn, .maintenance-btn {
+
+    .updated-btn {
         margin-top: 10px;
         margin-left: 0;
     }
+
     .menu-dialog, .report-dialog, #languageModal, #loginGoogleModal, #musicPlayerModal {
         max-width: 320px;
-        padding: 20px;
+        padding: 15px;
     }
+
     .dialog-content h2 {
         font-size: 20px;
-        margin-bottom: 20px;
-        letter-spacing: 1.5px;
+        margin-bottom: 15px;
     }
+
     .menu-item {
         margin-bottom: 10px;
     }
+
     .search-mod {
         padding: 10px;
     }
-    .search-mod i {
-        font-size: 18px;
-        margin-right: 10px;
+
+    #loginGoogleContent {
+        font-size: 12px;
     }
-    .search-mod input {
-        font-size: 14px;
+
+    #loginGoogleContent ol {
+        padding-left: 12px;
     }
-    .menu-item a {
-        padding: 12px;
-        font-size: 14px;
+
+    #loginGoogleContent li {
+        margin-bottom: 4px;
     }
-    .menu-item a i {
-        font-size: 16px;
-        margin-right: 10px;
-    }
-    .close-btn {
-        font-size: 20px;
-        width: 32px;
-        height: 32px;
-    }
-    #loginGoogleContent, #musicPlayerContent {
-        font-size: 13px;
-    }
-    #loginGoogleContent h3 {
-        font-size: 14px;
-    }
+
     #trackSelector {
         width: 150px;
+    }
+
+    .lang-btn {
+        padding: 5px 10px;
+        font-size: 11px;
     }
 }
 
 @media (min-width: 768px) {
     .app-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 15px;
+    }
+}
+
+/* Sembunyikan elemen audio */
+#musicPlayer {
+    display: none;
+}
+
+/* Animasi untuk elemen tersembunyi */
+.hidden {
+    display: none;
+}
+
+/* Aksesibilitas: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
     }
 }

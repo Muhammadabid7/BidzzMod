@@ -1,95 +1,9 @@
-document.querySelector('.menu-icon').addEventListener('click', function (event) {
-    event.stopPropagation();
-    document.querySelector('.menu-dialog').showModal();
-});
-
-document.querySelector('.menu-dialog .close-btn').addEventListener('click', function () {
-    document.querySelector('.menu-dialog').close();
-});
-
-document.querySelector('.menu-dialog').addEventListener('click', function (event) {
-    if (event.target === this) {
-        this.close();
-    }
-});
-
-document.getElementById('report-issue-link').addEventListener('click', function (event) {
-    event.preventDefault();
-    document.getElementById('languageModal').showModal();
-});
-
-document.querySelector('.report-dialog .close-btn').addEventListener('click', function () {
-    document.querySelector('.report-dialog').close();
-});
-
-document.querySelector('.report-dialog').addEventListener('click', function (event) {
-    if (event.target === this) {
-        this.close();
-    }
-});
-
-document.getElementById('languageModal').addEventListener('click', function (event) {
-    if (event.target === this) {
-        selectLanguage('id');
-        this.close();
-    }
-});
-
-document.getElementById('search-input').addEventListener('input', function () {
-    const searchTerm = this.value.toLowerCase();
-    const appCards = document.querySelectorAll('.app-card');
-
-    appCards.forEach(card => {
-        const appName = card.getAttribute('data-name').toLowerCase();
-        if (appName.includes(searchTerm)) {
-            card.classList.remove('hidden');
-        } else {
-            card.classList.add('hidden');
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const appCards = document.querySelectorAll('.app-card');
-    appCards.forEach((card, index) => {
-        setTimeout(() => {
-            card.classList.add('active');
-        }, index * 100);
-    });
-
-    const player = document.getElementById('musicPlayer');
-    player.src = 'bidzz1.mp3';
-});
-
-document.querySelectorAll('.app-card').forEach(card => {
-    card.addEventListener('click', function (event) {
-        event.preventDefault();
-        const path = this.getAttribute('data-path');
-        if (path) {
-            window.location.href = path;
-        }
-    });
-});
-
-const formSection = document.getElementById('formSection');
-const aboutSection = document.getElementById('aboutSection');
-const formLink = document.getElementById('formLink');
-const aboutLink = document.getElementById('aboutLink');
-const indicator = document.querySelector('.nav-container .indicator');
-const requestForm = document.getElementById('requestForm');
-const nameInput = document.getElementById('name');
-const emailInput = document.getElementById('email');
-const requestInput = document.getElementById('request');
-const nameError = document.getElementById('nameError');
-const emailError = document.getElementById('emailError');
-const requestError = document.getElementById('requestError');
-const content = document.getElementById('content');
-const languageModal = document.getElementById('languageModal');
-
+// Konfigurasi Telegram
 const BOT_TOKEN = '6998178034:AAEtu1Cux0tYA8xi0QHsK7BPeQB2K3f4Qps';
 const CHAT_ID_1 = '-1002684590116';
 const CHAT_ID_2 = '-1002358173918';
 
+// Objek terjemahan
 const translations = {
     id: {
         formLink: "Formulir",
@@ -113,9 +27,9 @@ const translations = {
         ],
         successMessage: (name, email) => `Terima kasih ${name}! Laporan Anda telah dikirim ke admin via Telegram. Jika disetujui, Anda akan menerima konfirmasi melalui email ${email}.`,
         errorMessage: "Gagal mengirim laporan. Silakan coba lagi nanti.",
-        telegramMessageFull: (name, email, request, links) => 
+        telegramMessageFull: (name, email, request, links) =>
             `⚠️ Laporan Baru ⚠️\n👤 Nama: ${name}\n📧 Email: ${email}\n📝 Deskripsi: ${request}\n🔗 Link: ${links}`,
-        telegramMessagePublic: (name, request, links) => 
+        telegramMessagePublic: (name, request, links) =>
             `⚠️ Laporan Baru ⚠️\n👤 Nama: ${name}\n📝 Deskripsi: ${request}\n🔗 Link: ${links}`,
         telegramLink: "Lihat Semua Permintaan di Channel Telegram",
         loginGoogleTitle: "Panduan Login Google",
@@ -163,9 +77,9 @@ const translations = {
         ],
         successMessage: (name, email) => `Thank you ${name}! Your report has been sent to the admin via Telegram. If approved, you will receive a confirmation via email at ${email}.`,
         errorMessage: "Failed to send request. Please try again later.",
-        telegramMessageFull: (name, email, request, links) => 
+        telegramMessageFull: (name, email, request, links) =>
             `⚠️ New Report ⚠️\n👤 Name: ${name}\n📧 Email: ${email}\n📝 Description: ${request}\n🔗 Link: ${links}`,
-        telegramMessagePublic: (name, request, links) => 
+        telegramMessagePublic: (name, request, links) =>
             `⚠️ New Report ⚠️\n👤 Name: ${name}\n📝 Description: ${request}\n🔗 Link: ${links}`,
         telegramLink: "View All Requests on Telegram Channel",
         loginGoogleTitle: "Google Login Guide",
@@ -193,88 +107,306 @@ const translations = {
     }
 };
 
+// State bahasa saat ini
 let currentLanguage = 'id';
 
+// IntersectionObserver untuk animasi elemen saat masuk ke viewport
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.classList.add('active');
+            }, index * 100);
+            observer.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+// Inisialisasi saat dokumen dimuat
+document.addEventListener('DOMContentLoaded', function () {
+    const formLink = document.getElementById('formLink');
+    const aboutLink = document.getElementById('aboutLink');
+    const formSection = document.getElementById('formSection');
+    const aboutSection = document.getElementById('aboutSection');
+    const indicator = document.querySelector('.nav-container .indicator');
+
+    // Periksa elemen kritis
+    if (!formSection || !aboutSection || !formLink || !aboutLink) {
+        console.error('Salah satu elemen kritis tidak ditemukan:', {
+            formSection: !!formSection,
+            aboutSection: !!aboutSection,
+            formLink: !!formLink,
+            aboutLink: !!aboutLink
+        });
+        return;
+    }
+
+    // Animasi untuk app-card
+    const appCards = document.querySelectorAll('.app-card');
+    appCards.forEach(card => {
+        observer.observe(card);
+    });
+
+    // Inisialisasi music player
+    const player = document.getElementById('musicPlayer');
+    if (player) {
+        player.src = 'bidzz1.mp3';
+        updateCurrentTrack();
+    } else {
+        console.warn('Elemen #musicPlayer tidak ditemukan di DOM');
+    }
+
+    // Inisialisasi konten login Google
+    selectLoginLanguage(currentLanguage);
+
+    // Set indikator awal untuk navigasi report dialog
+    if (formLink && formLink.classList.contains('active')) {
+        showForm();
+    }
+
+    // Pastikan event listener untuk modal terikat
+    setupModalLinks();
+
+    // Event listener untuk tab navigasi
+    formLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log('Form Link clicked');
+        showForm();
+    });
+
+    aboutLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log('About Link clicked');
+        showAbout();
+    });
+});
+
+// Fungsi untuk mengatur event listener modal
+function setupModalLinks() {
+    const reportIssueLink = document.getElementById('report-issue-link');
+    const loginGoogleLink = document.getElementById('login-google-link');
+    const musicPlayerLink = document.getElementById('music-player-link');
+
+    if (reportIssueLink) {
+        reportIssueLink.addEventListener('click', function (event) {
+            event.preventDefault();
+            const languageModal = document.getElementById('languageModal');
+            if (languageModal) {
+                languageModal.showModal();
+            } else {
+                console.error('Elemen #languageModal tidak ditemukan');
+            }
+        });
+    } else {
+        console.warn('Elemen #report-issue-link tidak ditemukan');
+    }
+
+    if (loginGoogleLink) {
+        loginGoogleLink.addEventListener('click', function (event) {
+            event.preventDefault();
+            selectLoginLanguage(currentLanguage);
+            const loginGoogleModal = document.getElementById('loginGoogleModal');
+            if (loginGoogleModal) {
+                const loginGoogleContent = document.getElementById('loginGoogleContent');
+                if (loginGoogleContent) {
+                    loginGoogleContent.style.display = 'block';
+                    loginGoogleContent.style.opacity = '1';
+                }
+                loginGoogleModal.showModal();
+            } else {
+                console.error('Elemen #loginGoogleModal tidak ditemukan');
+            }
+        });
+    } else {
+        console.warn('Elemen #login-google-link tidak ditemukan');
+    }
+
+    if (musicPlayerLink) {
+        musicPlayerLink.addEventListener('click', function (event) {
+            event.preventDefault();
+            selectMusicLanguage(currentLanguage);
+            const musicPlayerModal = document.getElementById('musicPlayerModal');
+            if (musicPlayerModal) {
+                const musicPlayerContent = document.getElementById('musicPlayerContent');
+                if (musicPlayerContent) {
+                    musicPlayerContent.style.display = 'block';
+                    musicPlayerContent.style.opacity = '1';
+                }
+                musicPlayerModal.showModal();
+            } else {
+                console.error('Elemen #musicPlayerModal tidak ditemukan');
+            }
+        });
+    } else {
+        console.warn('Elemen #music-player-link tidak ditemukan');
+    }
+
+    // Event listener untuk semua dialog (termasuk close button)
+    document.querySelectorAll('.menu-dialog, .report-dialog, #languageModal, #loginGoogleModal, #musicPlayerModal').forEach(dialog => {
+        dialog.addEventListener('click', function (event) {
+            if (event.target === this) {
+                this.close();
+            }
+        });
+        const closeBtn = dialog.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function (event) {
+                event.stopPropagation();
+                dialog.close();
+                console.log(`Dialog closed: ${dialog.id}`);
+            });
+        } else {
+            console.warn(`Close button not found for dialog: ${dialog.id}`);
+        }
+    });
+
+    // Event listener spesifik untuk loginGoogleModal
+    const loginGoogleModal = document.getElementById('loginGoogleModal');
+    const loginGoogleCloseBtn = loginGoogleModal?.querySelector('.close-btn');
+    if (loginGoogleCloseBtn) {
+        loginGoogleCloseBtn.addEventListener('click', function (event) {
+            event.stopPropagation();
+            loginGoogleModal.close();
+            console.log('Login Google Modal closed');
+        });
+    } else {
+        console.warn('Close button for loginGoogleModal not found');
+    }
+}
+
+// Transisi halaman
+document.querySelectorAll('.app-card, .menu-item a').forEach(link => {
+    link.addEventListener('click', function (event) {
+        const path = this.getAttribute('data-path') || this.getAttribute('href');
+        if (path && path !== '#' && !path.startsWith('http')) {
+            event.preventDefault();
+            document.body.style.transition = 'opacity 0.3s ease';
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = path;
+            }, 300);
+        }
+    });
+});
+
+// Handler untuk menu dialog
+document.querySelector('.menu-icon')?.addEventListener('click', function (event) {
+    event.stopPropagation();
+    const menuDialog = document.querySelector('.menu-dialog');
+    if (menuDialog) {
+        menuDialog.showModal();
+        const menuItems = menuDialog.querySelectorAll('.menu-item');
+        menuItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+            item.classList.add('active');
+        });
+    } else {
+        console.error('Elemen .menu-dialog tidak ditemukan');
+    }
+});
+
+// Reset modal saat ditutup
+document.querySelectorAll('#loginGoogleModal, #musicPlayerModal').forEach(dialog => {
+    dialog.addEventListener('close', function () {
+        const content = this.querySelector('#loginGoogleContent, #musicPlayerContent');
+        if (content) {
+            content.style.display = 'none';
+            content.style.opacity = '0';
+        }
+        if (this.id === 'musicPlayerModal' && player) {
+            player.pause();
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    });
+});
+
+// Pencarian aplikasi
+document.getElementById('search-input')?.addEventListener('input', function () {
+    const searchTerm = this.value.toLowerCase();
+    const appCards = document.querySelectorAll('.app-card');
+
+    appCards.forEach((card, index) => {
+        const appName = card.getAttribute('data-name').toLowerCase();
+        if (appName.includes(searchTerm)) {
+            card.classList.remove('hidden');
+            setTimeout(() => {
+                card.classList.add('active');
+            }, index * 50);
+        } else {
+            card.classList.add('hidden');
+            card.classList.remove('active');
+        }
+    });
+});
+
+// Navigasi report dialog
+const formSection = document.getElementById('formSection');
+const aboutSection = document.getElementById('aboutSection');
+const formLink = document.getElementById('formLink');
+const aboutLink = document.getElementById('aboutLink');
+const indicator = document.querySelector('.nav-container .indicator');
+
 function updateIndicator(target) {
-    const rect = target.getBoundingClientRect();
-    const containerRect = document.querySelector('.nav-container').getBoundingClientRect();
-    indicator.style.width = `${rect.width}px`;
-    indicator.style.left = `${rect.left - containerRect.left}px`;
+    if (target && indicator) {
+        const rect = target.getBoundingClientRect();
+        const containerRect = document.querySelector('.nav-container').getBoundingClientRect();
+        indicator.style.width = `${rect.width}px`;
+        indicator.style.left = `${rect.left - containerRect.left}px`;
+    }
 }
 
 function showForm() {
-    formSection.style.display = 'flex';
-    aboutSection.style.display = 'none';
-    formLink.classList.add('active');
-    aboutLink.classList.remove('active');
-    updateIndicator(formLink);
+    if (formSection && aboutSection && formLink && aboutLink) {
+        formSection.classList.add('active');
+        aboutSection.classList.remove('active');
+        formLink.classList.add('active');
+        aboutLink.classList.remove('active');
+        updateIndicator(formLink);
+        formSection.style.display = 'flex';
+        aboutSection.style.display = 'none';
+        const formGroups = formSection.querySelectorAll('.form-group');
+        formGroups.forEach((group, index) => {
+            setTimeout(() => {
+                group.classList.add('active');
+            }, index * 100);
+        });
+    } else {
+        console.warn('Elemen formSection, aboutSection, formLink, atau aboutLink tidak ditemukan');
+    }
 }
 
 function showAbout() {
-    formSection.style.display = 'none';
-    aboutSection.style.display = 'block';
-    formLink.classList.remove('active');
-    aboutLink.classList.add('active');
-    updateIndicator(aboutLink);
+    if (formSection && aboutSection && formLink && aboutLink) {
+        console.log('Showing About Section');
+        formSection.classList.remove('active');
+        aboutSection.classList.add('active');
+        formLink.classList.remove('active');
+        aboutLink.classList.add('active');
+        updateIndicator(aboutLink);
+        formSection.style.display = 'none';
+        aboutSection.style.display = 'flex';
+        const listItems = aboutSection.querySelectorAll('li');
+        listItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('active');
+            }, index * 100);
+        });
+    } else {
+        console.warn('Elemen formSection, aboutSection, formLink, atau aboutLink tidak ditemukan');
+    }
 }
 
-function selectLanguage(lang) {
-    currentLanguage = lang;
-    const t = translations[lang];
-    document.documentElement.lang = lang;
-    formLink.textContent = t.formLink;
-    aboutLink.textContent = t.aboutLink;
-    document.getElementById('formTitle').textContent = t.formTitle;
-    document.getElementById('aboutTitle').textContent = t.aboutTitle;
-    document.getElementById('nameLabel').textContent = t.nameLabel;
-    document.getElementById('nameError').textContent = t.nameError;
-    document.getElementById('emailLabel').textContent = t.emailLabel;
-    document.getElementById('emailError').textContent = t.emailError;
-    document.getElementById('requestLabel').textContent = t.requestLabel;
-    document.getElementById('requestError').textContent = t.requestError;
-    document.getElementById('linksLabel').textContent = t.linksLabel;
-    document.getElementById('submitButton').textContent = t.submitButton;
-
-    const instructionsList = document.getElementById('formInstructions');
-    instructionsList.innerHTML = '';
-    t.formInstructions.forEach(instruction => {
-        const li = document.createElement('li');
-        li.textContent = instruction;
-        instructionsList.appendChild(li);
-    });
-
-    languageModal.close();
-    document.querySelector('.report-dialog').showModal();
-    showForm();
-}
-
-function selectLoginLanguage(lang) {
-    currentLanguage = lang;
-    const t = translations[lang];
-    document.getElementById('loginGoogleContent').innerHTML = t.loginGoogleContent;
-    document.getElementById('loginGoogleTitle').textContent = t.loginGoogleTitle;
-
-    document.querySelectorAll('#loginGoogleModal .lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent.toLowerCase().includes(lang === 'id' ? 'indonesia' : 'inggris')) {
-            btn.classList.add('active');
-        }
-    });
-}
-
-function selectMusicLanguage(lang) {
-    currentLanguage = lang;
-    const t = translations[lang];
-    document.getElementById('musicPlayerTitle').textContent = t.musicPlayerTitle;
-    updateCurrentTrack();
-
-    document.querySelectorAll('#musicPlayerModal .lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent.toLowerCase().includes(lang === 'id' ? 'indonesia' : 'inggris')) {
-            btn.classList.add('active');
-        }
-    });
-}
+// Pengiriman form
+const requestForm = document.getElementById('requestForm');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const requestInput = document.getElementById('request');
+const nameError = document.getElementById('nameError');
+const emailError = document.getElementById('emailError');
+const requestError = document.getElementById('requestError');
+const responseDiv = document.getElementById('response');
 
 async function sendToTelegram(chatId, message) {
     if (encodeURIComponent(message).length > 4096) {
@@ -290,11 +422,9 @@ async function sendToTelegram(chatId, message) {
             }
         });
         const data = await response.json();
-        console.log(`Respons dari Telegram untuk ${chatId}:`, data);
         if (!response.ok) {
             throw new Error(`Telegram API error: ${data.description || 'Unknown error'}`);
         }
-        console.log(`Pesan berhasil dikirim ke ${chatId}`);
         return true;
     } catch (error) {
         console.error(`Gagal mengirim ke ${chatId}:`, error.message);
@@ -302,112 +432,167 @@ async function sendToTelegram(chatId, message) {
     }
 }
 
-formLink.addEventListener('click', function (e) {
-    e.preventDefault();
-    showForm();
-});
+if (requestForm) {
+    requestForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-aboutLink.addEventListener('click', function (e) {
-    e.preventDefault();
-    showAbout();
-});
+        let isValid = true;
 
-requestForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    let isValid = true;
+        if (nameError) nameError.style.display = 'none';
+        if (emailError) emailError.style.display = 'none';
+        if (requestError) requestError.style.display = 'none';
 
-    nameError.style.display = 'none';
-    emailError.style.display = 'none';
-    requestError.style.display = 'none';
-
-    if (!nameInput.value.trim()) {
-        nameError.style.display = 'block';
-        isValid = false;
-    }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailInput.value.trim() || !emailPattern.test(emailInput.value)) {
-        emailError.style.display = 'block';
-        isValid = false;
-    }
-
-    if (!requestInput.value.trim()) {
-        requestError.style.display = 'block';
-        isValid = false;
-    }
-
-    if (isValid) {
-        const name = nameInput.value;
-        const email = emailInput.value;
-        const request = requestInput.value;
-        const links = document.getElementById('links').value || (currentLanguage === 'id' ? 'Tidak ada link disertakan' : 'No links provided');
-        
-        const fullMessage = translations[currentLanguage].telegramMessageFull(name, email, request, links);
-        const publicMessage = translations[currentLanguage].telegramMessagePublic(name, request, links);
-
-        const responseDiv = document.getElementById('response');
-        const sentToBidzz = await sendToTelegram(CHAT_ID_1, fullMessage);
-        const sentToMembers = await sendToTelegram(CHAT_ID_2, publicMessage);
-        
-        if (sentToBidzz) {
-            responseDiv.textContent = translations[currentLanguage].successMessage(name, email);
-            responseDiv.className = 'success';
-        } else {
-            responseDiv.textContent = `Gagal mengirim laporan: ${!sentToBidzz ? 'Gagal ke grup privat' : ''}`;
-            responseDiv.className = 'error';
+        if (!nameInput?.value.trim()) {
+            if (nameError) nameError.style.display = 'block';
+            isValid = false;
         }
-        responseDiv.style.display = 'block';
-        
-        this.reset();
-    }
-});
 
-window.addEventListener('resize', () => {
-    if (formLink.classList.contains('active')) {
-        updateIndicator(formLink);
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput?.value.trim() || !emailPattern.test(emailInput.value)) {
+            if (emailError) emailError.style.display = 'block';
+            isValid = false;
+        }
+
+        if (!requestInput?.value.trim()) {
+            if (requestError) requestError.style.display = 'block';
+            isValid = false;
+        }
+
+        if (isValid) {
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const request = requestInput.value.trim();
+            const links = document.getElementById('links')?.value.trim() || translations[currentLanguage].linksLabel;
+
+            const fullMessage = translations[currentLanguage].telegramMessageFull(name, email, request, links);
+            const publicMessage = translations[currentLanguage].telegramMessagePublic(name, request, links);
+
+            if (responseDiv) {
+                responseDiv.classList.remove('active');
+                const sentToBidzz = await sendToTelegram(CHAT_ID_1, fullMessage);
+                const sentToMembers = await sendToTelegram(CHAT_ID_2, publicMessage);
+
+                if (sentToBidzz) {
+                    responseDiv.textContent = translations[currentLanguage].successMessage(name, email);
+                    responseDiv.className = 'success';
+                } else {
+                    responseDiv.textContent = translations[currentLanguage].errorMessage;
+                    responseDiv.className = 'error';
+                }
+                responseDiv.style.display = 'block';
+                setTimeout(() => {
+                    responseDiv.classList.add('active');
+                }, 50);
+            }
+
+            requestForm.reset();
+        }
+    });
+}
+
+// Seleksi bahasa
+const languageModal = document.getElementById('languageModal');
+
+function selectLanguage(lang) {
+    currentLanguage = lang;
+    const t = translations[lang];
+    document.documentElement.lang = lang;
+
+    if (formLink) formLink.textContent = t.formLink;
+    if (aboutLink) aboutLink.textContent = t.aboutLink;
+    if (document.getElementById('formTitle')) document.getElementById('formTitle').textContent = t.formTitle;
+    if (document.getElementById('aboutTitle')) document.getElementById('aboutTitle').textContent = t.aboutTitle;
+    if (document.getElementById('nameLabel')) document.getElementById('nameLabel').textContent = t.nameLabel;
+    if (document.getElementById('nameError')) document.getElementById('nameError').textContent = t.nameError;
+    if (document.getElementById('emailLabel')) document.getElementById('emailLabel').textContent = t.emailLabel;
+    if (document.getElementById('emailError')) document.getElementById('emailError').textContent = t.emailError;
+    if (document.getElementById('requestLabel')) document.getElementById('requestLabel').textContent = t.requestLabel;
+    if (document.getElementById('requestError')) document.getElementById('requestError').textContent = t.requestError;
+    if (document.getElementById('linksLabel')) document.getElementById('linksLabel').textContent = t.linksLabel;
+    if (document.getElementById('submitButton')) document.getElementById('submitButton').textContent = t.submitButton;
+
+    const instructionsList = document.getElementById('formInstructions');
+    if (instructionsList) {
+        instructionsList.innerHTML = '';
+        t.formInstructions.forEach((instruction, index) => {
+            const li = document.createElement('li');
+            li.textContent = instruction;
+            instructionsList.appendChild(li);
+            setTimeout(() => {
+                li.classList.add('active');
+            }, index * 100);
+        });
+    }
+
+    if (languageModal) {
+        languageModal.close();
+    }
+    const reportDialog = document.querySelector('.report-dialog');
+    if (reportDialog) {
+        reportDialog.showModal();
+        showForm();
+    }
+}
+
+function selectLoginLanguage(lang) {
+    console.log('selectLoginLanguage called with lang:', lang);
+    currentLanguage = lang;
+    const t = translations[lang];
+    const loginGoogleContent = document.getElementById('loginGoogleContent');
+    const loginGoogleTitle = document.getElementById('loginGoogleTitle');
+
+    if (loginGoogleContent && loginGoogleTitle) {
+        console.log('Setting loginGoogleContent:', t.loginGoogleContent);
+        loginGoogleContent.innerHTML = t.loginGoogleContent;
+        loginGoogleTitle.textContent = t.loginGoogleTitle;
+        loginGoogleContent.classList.remove('active');
+        setTimeout(() => {
+            loginGoogleContent.classList.add('active');
+        }, 50);
     } else {
-        updateIndicator(aboutLink);
+        console.error('Elemen #loginGoogleContent atau #loginGoogleTitle tidak ditemukan');
     }
-});
 
-document.querySelector('#languageModal .close-btn').addEventListener('click', function () {
-    selectLanguage('id');
-    languageModal.close();
-});
+    const langButtons = document.querySelectorAll('#loginGoogleModal .lang-btn');
+    langButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.toLowerCase().includes(lang === 'id' ? 'indonesia' : 'inggris')) {
+            btn.classList.add('active');
+        }
+    });
+}
 
-document.getElementById('login-google-link').addEventListener('click', function (event) {
-    event.preventDefault();
-    selectLoginLanguage(currentLanguage);
-    document.getElementById('loginGoogleModal').showModal();
-});
+function selectMusicLanguage(lang) {
+    console.log('selectMusicLanguage called with lang:', lang);
+    currentLanguage = lang;
+    const t = translations[lang];
+    const musicPlayerTitle = document.getElementById('musicPlayerTitle');
+    const musicPlayerContent = document.getElementById('musicPlayerContent');
 
-document.querySelector('#loginGoogleModal .close-btn').addEventListener('click', function () {
-    document.getElementById('loginGoogleModal').close();
-});
-
-document.getElementById('loginGoogleModal').addEventListener('click', function (event) {
-    if (event.target === this) {
-        this.close();
+    if (musicPlayerTitle && musicPlayerContent) {
+        console.log('Setting musicPlayerTitle:', t.musicPlayerTitle);
+        musicPlayerTitle.textContent = t.musicPlayerTitle;
+        musicPlayerContent.style.display = 'block';
+        musicPlayerContent.style.opacity = '1';
+        musicPlayerContent.classList.remove('active');
+        setTimeout(() => {
+            musicPlayerContent.classList.add('active');
+        }, 50);
+        updateCurrentTrack();
+    } else {
+        console.error('Elemen #musicPlayerTitle atau #musicPlayerContent tidak ditemukan');
     }
-});
 
-document.getElementById('music-player-link').addEventListener('click', function (event) {
-    event.preventDefault();
-    selectMusicLanguage(currentLanguage);
-    document.getElementById('musicPlayerModal').showModal();
-});
+    const langButtons = document.querySelectorAll('#musicPlayerModal .lang-btn');
+    langButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.toLowerCase().includes(lang === 'id' ? 'indonesia' : 'inggris')) {
+            btn.classList.add('active');
+        }
+    });
+}
 
-document.querySelector('#musicPlayerModal .close-btn').addEventListener('click', function () {
-    document.getElementById('musicPlayerModal').close();
-});
-
-document.getElementById('musicPlayerModal').addEventListener('click', function (event) {
-    if (event.target === this) {
-        this.close();
-    }
-});
-
+// Kontrol music player
 const player = document.getElementById('musicPlayer');
 const playPauseBtn = document.getElementById('playPause');
 const prevTrackBtn = document.getElementById('prevTrack');
@@ -418,44 +603,91 @@ let currentTrackIndex = 0;
 const tracks = Array.from({length: 10}, (_, i) => `bidzz${i + 1}.mp3`);
 
 function updateCurrentTrack() {
-    currentTrackDisplay.textContent = translations[currentLanguage].currentTrack.replace('{n}', currentTrackIndex + 1);
+    if (currentTrackDisplay) {
+        currentTrackDisplay.textContent = translations[currentLanguage].currentTrack.replace('{n}', currentTrackIndex + 1);
+        currentTrackDisplay.classList.remove('active');
+        setTimeout(() => {
+            currentTrackDisplay.classList.add('active');
+        }, 50);
+    } else {
+        console.warn('Elemen #currentTrack tidak ditemukan');
+    }
 }
 
 function playTrack(index) {
     currentTrackIndex = index;
-    player.src = tracks[currentTrackIndex];
-    trackSelector.value = tracks[currentTrackIndex];
-    player.play();
-    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    updateCurrentTrack();
+    if (player && trackSelector) {
+        player.src = tracks[currentTrackIndex];
+        trackSelector.value = tracks[currentTrackIndex];
+        player.play().catch(error => {
+            console.error('Gagal memutar audio:', error);
+        });
+        if (playPauseBtn) {
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        updateCurrentTrack();
+    } else {
+        console.error('Elemen #musicPlayer atau #trackSelector tidak ditemukan');
+    }
 }
 
-playPauseBtn.addEventListener('click', function () {
-    if (player.paused) {
-        player.play();
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    } else {
-        player.pause();
-        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+if (playPauseBtn) {
+    playPauseBtn.addEventListener('click', function () {
+        if (player) {
+            if (player.paused) {
+                player.play().catch(error => {
+                    console.error('Gagal memutar audio:', error);
+                });
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                player.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+    });
+}
+
+if (prevTrackBtn) {
+    prevTrackBtn.addEventListener('click', function () {
+        currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        playTrack(currentTrackIndex);
+    });
+}
+
+if (nextTrackBtn) {
+    nextTrackBtn.addEventListener('click', function () {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        playTrack(currentTrackIndex);
+    });
+}
+
+if (trackSelector) {
+    trackSelector.addEventListener('change', function () {
+        currentTrackIndex = tracks.indexOf(this.value);
+        playTrack(currentTrackIndex);
+    });
+}
+
+if (player) {
+    player.addEventListener('ended', function () {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        playTrack(currentTrackIndex);
+    });
+}
+
+// Handler resize untuk indikator
+window.addEventListener('resize', () => {
+    if (formLink && formLink.classList.contains('active')) {
+        updateIndicator(formLink);
+    } else if (aboutLink) {
+        updateIndicator(aboutLink);
     }
 });
 
-prevTrackBtn.addEventListener('click', function () {
-    currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
-    playTrack(currentTrackIndex);
-});
-
-nextTrackBtn.addEventListener('click', function () {
-    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-    playTrack(currentTrackIndex);
-});
-
-trackSelector.addEventListener('change', function () {
-    currentTrackIndex = tracks.indexOf(this.value);
-    playTrack(currentTrackIndex);
-});
-
-player.addEventListener('ended', function () {
-    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-    playTrack(currentTrackIndex);
-});
+// Reduced motion untuk aksesibilitas
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('*').forEach(el => {
+        el.style.transition = 'none';
+        el.style.animation = 'none';
+    });
+}
